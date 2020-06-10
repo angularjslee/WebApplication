@@ -29,4 +29,36 @@ app.post('/login', routes.dlLogin);
 app.get('/login_success', routes.loginSuccess);
 app.get('/login_failed', routes.loginFailed);
 
+//NodeJS 操作 MongoDB
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+// 连接数据库
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  console.log("数据库已创建!");
+  db.close();
+});
+
+//查询数据库
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("test");
+  dbo.collection("mycol"). find({}).toArray(function(err, result) { // 返回集合中所有数据
+    if (err) throw err;
+    console.log(result);
+    db.close();
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
 
